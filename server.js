@@ -5,6 +5,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set("view engine", "ejs");
 
+app.use("public", express.static("public"));
+
 var db;
 const MongoClient = require("mongodb").MongoClient;
 MongoClient.connect(
@@ -28,11 +30,11 @@ MongoClient.connect(
 );
 
 app.get("/", function (요청, 응답) {
-  응답.sendFile(__dirname + "/index.html");
+  응답.render("index.ejs");
 });
 
 app.get("/write", function (요청, 응답) {
-  응답.sendFile(__dirname + "/write.html");
+  응답.render("write.ejs");
 });
 
 app.post("/add", function (요청, 응답) {
@@ -77,4 +79,14 @@ app.delete("/delete", function (요청, 응답) {
     console.log("삭제완료");
     응답.status(200).send({ message: "성공했습니다" });
   });
+});
+
+app.get("/detail/:id", function (요청, 응답) {
+  db.collection("post").findOne(
+    { _id: parseInt(요청.params.id) },
+    function (에러, 결과) {
+      console.log(결과);
+      응답.render("detail.ejs", { data: 결과 });
+    }
+  );
 });

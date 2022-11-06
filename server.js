@@ -10,7 +10,7 @@ app.use("public", express.static("public"));
 var db;
 const MongoClient = require("mongodb").MongoClient;
 MongoClient.connect(
-  "mongodb+srv://seodawon:1234@cluster0.4hpbz.mongodb.net/?retryWrites=true&w=majority",
+  "mongodb+srv://seodawon:6921@cluster0.ytozh0z.mongodb.net/?retryWrites=true&w=majority",
   function (에러, client) {
     if (에러) return console.log(에러);
 
